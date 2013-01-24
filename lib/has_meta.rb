@@ -1,5 +1,6 @@
-require "cgi"
-require "has_meta/version"
+require 'cgi'
+require 'active_record'
+require 'has_meta/version'
 
 module HasMeta
   module Extensions
@@ -29,4 +30,4 @@ module HasMeta
   end
 end
 
-ActiveModel::AttributeMethods.send :include, HasMeta::Extensions
+ActiveRecord::Base.send :include, HasMeta::Extensions
