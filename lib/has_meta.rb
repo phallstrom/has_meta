@@ -26,6 +26,14 @@ module HasMeta
             str = str.to_s.strip
             str.gsub!('&nbsp;', ' ')
             str.gsub!(/<.*?>/, '')
+
+            if meth.to_s == 'keywords'
+              str = str.gsub(/[\s,]+/, ',').
+                        gsub(/\s+/, ' ').
+                        gsub(/^,|,$/, '').
+                        strip 
+            end
+
             str = ::CGI::unescapeHTML(str)
             str = (str[0,length - 3] + '...') if str.size > length
             str

@@ -4,7 +4,8 @@
 
 Adds convenience methods to extract "meta" (as in http meta) strings from
 models by using existing fields or lambda/Procs for source data. Result is stripped of html
-tags and truncated to length (default 255).
+tags and truncated to length (default 255). If the meta is 'keywords' the result will take extra
+steps to strip white space and remove blank elements (ie. multiple commas)
 
 ## Installation
 
@@ -34,7 +35,7 @@ Or install it yourself as:
 
     bp = BlogPost.new(...)
 
-    bp.meta_keywords == bp.meta_keywords
+    bp.meta_keywords == bp.keywords
 
     # if short_description is not blank and less than 255 characters then
     bp.meta_description == bp.short_description
@@ -46,6 +47,13 @@ Or install it yourself as:
     bp.meta_foo == "Feb 27, 4:36:00 PM" # for example
     sleep 1
     bp.meta_foo == "Feb 27, 4:36:01 PM" # one second later
+
+    # 'keywords' gets extra special treatment.
+    bp.short_description = ',one  two,  ,three, '
+    bp.meta_description == ',one  two,  ,three, '
+
+    bp.keywords = ',one  two,  ,three, '
+    bp.meta_keywords == 'one,two,three'
 
 ## Contributing
 

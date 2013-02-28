@@ -26,28 +26,38 @@ end
 class HasMetaTest < Test::Unit::TestCase
   def setup
     @widget = Widget.new
-    @widget.short_description = 'Short Description'
-    @widget.content = 'Long Description'
-    @widget.keywords = ''
+    @widget.short_description = "Short Description"
+    @widget.content = "Long Description"
+    @widget.keywords = ""
     @widget.some_ivar = 1
   end
 
   def test_knows_its_meta_description
-    assert_equal 'Short Description', @widget.meta_description
+    assert_equal "Short Description", @widget.meta_description
   end
 
   def test_knows_its_meta_description_when_first_option_blank
     @widget.short_description = nil
-    assert_equal 'Long Description', @widget.meta_description
+    assert_equal "Long Description", @widget.meta_description
   end
 
   def test_knows_its_truncated_meta_description
-    assert_equal 'Short...', @widget.meta_description(8)
+    assert_equal "Short...", @widget.meta_description(8)
   end
 
   def test_strip_tags
     @widget.short_description = "<i>ital</i> <b>bold</b> <a href='http://pjkh.com'>pjkh.com</a> the end"
-    assert_equal 'ital bold pjkh.com the end', @widget.meta_description
+    assert_equal "ital bold pjkh.com the end", @widget.meta_description
+  end
+
+  def test_treat_keywords_special
+    @widget.keywords = " , , one , , two , three , , "
+    assert_equal "one,two,three", @widget.meta_keywords
+  end
+
+  def test_do_not_treat_description_special
+    @widget.short_description = " , , one , , two , three , , "
+    assert_equal ", , one , , two , three , ,", @widget.meta_description
   end
 
   def test_knows_its_meta_keywords
