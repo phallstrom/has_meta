@@ -28,7 +28,7 @@ module HasMeta
             str.gsub!(/<.*?>/, '')
 
             if meth.to_s == 'keywords'
-              str = str.gsub(/[\s,]+/, ',').
+              str = str.gsub(/[\s,]{2,}/, ',').
                         gsub(/\s+/, ' ').
                         gsub(/^,|,$/, '').
                         strip 

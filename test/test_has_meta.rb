@@ -55,6 +55,11 @@ class HasMetaTest < Test::Unit::TestCase
     assert_equal "one,two,three", @widget.meta_keywords
   end
 
+  def test_treat_keywords_special_but_not_too_special
+    @widget.keywords = " , , one two, , three , , "
+    assert_equal "one two,three", @widget.meta_keywords
+  end
+
   def test_do_not_treat_description_special
     @widget.short_description = " , , one , , two , three , , "
     assert_equal ", , one , , two , three , ,", @widget.meta_description
