@@ -14,9 +14,15 @@ module HasMeta
           define_method("meta_#{meth}") {|*args|
             length = args.first if args.is_a? Array
             length ||= 255
-            field = [*fields].detect{|f| send(f).present?}
-            return nil if field.nil?
-            str = send(field).to_s.strip
+
+            if fields.is_a? Proc
+              str = fields.call(self)
+            else
+              field = [*fields].detect{|f| send(f).present?}
+              return nil if field.nil?
+              str = send(field).to_s.strip
+            end
+
             str.gsub!('&nbsp;', ' ')
             str.gsub!(/<.*?>/, '')
             str = ::CGI::unescapeHTML(str)
