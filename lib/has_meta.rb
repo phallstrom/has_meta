@@ -20,9 +20,10 @@ module HasMeta
             else
               field = [*fields].detect{|f| send(f).present?}
               return nil if field.nil?
-              str = send(field).to_s.strip
+              str = send(field)
             end
 
+            str = str.to_s.strip
             str.gsub!('&nbsp;', ' ')
             str.gsub!(/<.*?>/, '')
             str = ::CGI::unescapeHTML(str)
