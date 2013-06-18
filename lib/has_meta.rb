@@ -3,6 +3,9 @@ require 'active_record'
 require 'has_meta/version'
 
 module HasMeta
+
+  OPTIONS = {:truncate => 255}
+
   module Extensions
     def self.included(base)
       base.extend(ClassMethods)
@@ -13,7 +16,7 @@ module HasMeta
         options.each_pair do |meth, fields|
           define_method("meta_#{meth}") {|*args|
             length = args.first if args.is_a? Array
-            length ||= 255
+            length ||= HasMeta::OPTIONS[:truncate]
 
             if fields.is_a? Proc
               str = fields.call(self)

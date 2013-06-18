@@ -32,6 +32,15 @@ class HasMetaTest < Test::Unit::TestCase
     @widget.some_ivar = 1
   end
 
+  def test_truncate_length
+    assert_equal HasMeta::OPTIONS[:truncate], 255
+  end
+
+  def test_truncate_length_override
+    HasMeta::OPTIONS.merge!(:truncate => 8)
+    assert_equal "Short...", @widget.meta_description
+  end
+
   def test_knows_its_meta_description
     assert_equal "Short Description", @widget.meta_description
   end

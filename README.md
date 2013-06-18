@@ -21,6 +21,13 @@ Or install it yourself as:
 
     $ gem install has_meta
 
+## Configuration
+
+By default has\_meta will truncate results at 255 characters.
+You can change this globally by creating an initializer file with the following contents:
+
+HasMeta::OPTIONS[:truncate] = 999
+
 ## Usage
 
     class BlogPost < ActiveRecord::Base
