@@ -11,6 +11,7 @@ Gem::Specification.new do |gem|
   gem.description   = %q{Adds convenience methods to extract "meta" (as in http meta) strings from models.}
   gem.summary       = %q{Adds convenience methods to extract "meta" (as in http meta) strings from models by using existing fields for source data. Strings are stripped of html tags and truncated to length (default 255).}
   gem.homepage      = "https://github.com/phallstrom/has_meta"
+  gem.license       = 'MIT'
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
